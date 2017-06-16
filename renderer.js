@@ -23,27 +23,20 @@ readdir(__dirname + '/data')
 
 		data.forEach( (fileName) =>{
 
-				$('#previous-photos').append(`<li value=${fileName}> ${fileName.split('.')[0]} </li>`)
+				$('#previous-photos').append(`<li value=${fileName}> <img  class='img-thumbnail select-pic' src='${__dirname}/data/${fileName}' </li>`)
 				$('#data-set').append(`<option value=${fileName}> ${fileName.split('.')[0]} </option>`)
 			})
 
 	})
 
 
-$('#data-set').on('change', (e)=>{
-
-		$('#image-display').empty()
-		$('#image-display').append($(`<img src="data/${e.target.value}" alt="your data" height="10%" width="10%">`))
-		dataIMG = e.target.value
-});
-
 
 $('#previous-photos').on('click','li', (e)=>{
-		console.log(e.target.value)
-		targetValue= String(e.target.value) +'.png'
+		targetValue = String($(e.target).parent()[0].value) + '.png'
+
 		$('#image-display').empty()
 		$('#image-display').append($(`<img src="data/${targetValue}" alt="your data" height="10%" width="10%">`))
-		dataIMG = e.target.value
+		dataIMG = targetValue
 });
 
 $('#graph').on('click', (e) => {

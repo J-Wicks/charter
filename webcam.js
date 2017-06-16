@@ -47,8 +47,8 @@ document.getElementById("savefile").addEventListener('click', function(){
          writeFile(__dirname+`/data/${fileName}.png`, imageBuffer.data)
          .then( result => {
             console.log("Image saved succesfully");
-            $('#data-set').append(`<option value=${fileName}.png> ${fileName} </option>`)
-            $('#start').removeClass('active')
+          $('#previous-photos').prepend(`<li value=${fileName}> <img  class='img-thumbnail select-pic' src='${__dirname}/data/${fileName}.png' </li>`)
+          $('#start').removeClass('active')
          })
       })
       }

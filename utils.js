@@ -40,7 +40,7 @@ const imgToCSV =  function(result){
 					let switched = false
 					line.symbols[index].choices.forEach( symbol =>{
 
-						if(isNaN(line.text[jindex]) && !switched && !isNaN(symbol.text)){
+						if(isNaN(line.text[jindex]) && !switched && !isNaN(symbol.text) && line.text[jindex] != '.'){
 							//replace the master line text with the best number match
 							result.lines[idx].text = result.lines[idx].text.replaceAt(jindex, symbol.text);
 
@@ -55,7 +55,7 @@ const imgToCSV =  function(result){
 				jindex++
 			}
 
-			let lineText  = line.text.replace(/[^a-zA-Z0-9— ]/g, '');
+			let lineText  = line.text.replace(/[^a-zA-Z0-9—. ]/g, '');
 			lineText = lineText.replace(/^[—]/g, '');
 			lineText = lineText.replace(/[—]/g, ' ');
 			lineText = lineText.replace(/[ ]/g, ',');
