@@ -17,6 +17,17 @@
   "author": "GitHub",
   "license": "CC0-1.0",
   "devDependencies": {
+    "devtron": "^1.4.0",
     "electron": "~1.6.2"
+  },
+  "dependencies": {
+    "bluebird": "^3.5.0",
+    "d3": "^4.9.1",
+    "electron-debug": "^1.1.0",
+    "fs": "0.0.1-security",
+    "jquery": "^3.2.1",
+    "remote": "^0.2.6",
+    "tesseract.js": "^1.0.10",
+    "webcamjs": "^1.0.22"
   }
 }

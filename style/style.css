@@ -1,0 +1,123 @@
+html {
+	color: #FFD23F;
+	background-color:#F2FDFF;
+}
+
+body {
+	border-top: solid 2px;
+
+}
+.bodybox {
+	font-family: 'Pangolin', cursive;
+	font-size: 1.5em;
+}
+#chart-space{
+	border-left: 2px solid;
+	border-bottom: 2px solid;
+	height: 50vh;
+	margin: 2px;
+	padding: 5px;
+
+}
+
+svg {
+	padding: 5px;
+}
+video {
+	height: 100%;
+	width: 100%;
+}
+.camera {
+	height: 50vh;
+}
+#image-window {
+	padding: 5px;
+}
+
+#chart-space:hover {
+  cursor: crosshair;
+  }
+
+
+
+.dataDot:hover{
+
+	fill: #FFD23F
+}
+
+.selected{
+	fill:#FFD23F;
+	stroke:black;
+	stroke-width: 2px;
+
+}
+
+.loading{
+	background-image: url(http://marclae.com/static/images/Loader.gif);
+	background-position: 50% 50%;
+	background-repeat: no-repeat;
+	background-size: 150px;
+
+}
+
+#correction-space{
+	padding: 5px;
+}
+
+#image-display {
+
+	height: auto;
+	width: 25vw;
+	overflow: scroll;
+}
+
+.camera-buttons{
+	border-top: solid 2px;
+	border-bottom: solid 2px;
+	text-align: center;
+	background-color: #63326E;
+}
+#image-display img{
+	border: solid 2px;
+	height: 40vh;
+	width: 25vh;
+
+}
+
+#sidebar {
+	position: relative;
+	padding: 0px;
+	background-color: #C8B8DB;
+	float:right;
+	min-height: 100vh;
+	height: 100%;
+	border-style: solid;
+	border-left: solid 4px;
+
+
+}
+
+.red {
+	color:red;
+}
+
+#close-btn{
+	background-color: transparent;
+	border: none;
+	float: right;
+}
+.hidden {
+	display:none;
+}
+
+#sidebar .logo {
+	padding: 5px;
+	border-bottom: solid;
+	border-color: black;
+	font-size: 2em;
+	color: #FFD23F;
+	text-align: center;
+	font-family: 'Pacifico', cursive;
+	background-color: #63326E;
+}
+
