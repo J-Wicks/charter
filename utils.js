@@ -3,10 +3,31 @@ const Tesseract = require('tesseract.js')
 const fs = require('fs')
 
 const imgToCSV =  function(result){
-	let labels = false;
-	let newCSV = ''
-	let filename = Math.floor(Math.random()*100)
 
+	console.log('Your translated data',result)
+	let labels = false;
+	let confidenceMatrix = [];
+	let newCSV = '';
+	let filename = Math.floor(Math.random()*100);
+
+		//get confidence intervals for chart styling
+		// result.lines.forEach( line => {
+		// 	const linelength = line.text.split(' ').join('').length
+		// 	let textBlocks = line.text.split(' ')
+		// 	let prilength = 0
+		// 	textBlocks = textBlocks.map ( (block, idx) => {
+				
+		// 		const symbolsToParse = line.symbols.slice(prilength, block.length)
+		// 		prilength = block.length
+		// 		console.log(block,  symbolsToParse)
+
+		// 		let confidence = 0
+
+
+		// 		return { text: block, confidence: 0}
+		// 	})
+		// confidenceMatrix.push(textBlocks)
+		// })
 	// console.log('Parsing new file: ', result)
 
 		if(result.lines[0].text.split(' ').length > 2)
@@ -67,7 +88,6 @@ const imgToCSV =  function(result){
 		fs.writeFile(__dirname + `/csv/${filename}.csv`, newCSV, (err) => {
 			if(err) throw err;
 		})
-		console.log('your scrubbed csv', newCSV)
 		return newCSV
 	}
 

@@ -12,9 +12,9 @@ const imgToCSV = require('./utils').imgToCSV
 const Tesseract = require('tesseract.js')
 
 //set height and width of chart
-const h = 255;
-const w = 480;
-const padding = 20;
+const h = 398;
+const w = 720;
+const padding = 30;
 let dataIMG = '';
 
 
@@ -40,10 +40,12 @@ $('#previous-photos').on('click','li', (e)=>{
 });
 
 $('#graph').on('click', (e) => {
+
+
 $('svg').remove()
 $('#chart-space').addClass('loading')
 $('#correlation').remove()
-
+$('#corrections-form').empty()
 
 readFile(__dirname+`/data/${dataIMG}`)
 .then ( result => {
@@ -59,15 +61,37 @@ return 	Tesseract.recognize(result).progress(function (p) {console.log('progress
 	return d3.csvParse(stats)
 })
 .then( stats => {
+
+	let columns = stats.columns
+		$('#corrections-form').append(
+				$(`<div class='row'>
+                  <div class='correction-header col-sm-4 correction-cell'> <input type='text' value=${columns[0]} /></div> 
+                  <div class='correction-header col-sm-4 correction-cell'> <input type='text' value=${columns[1]} /></div>  
+                  <div class='correction-header col-sm-4 correction-cell'> <input type='text' value=${columns[2]} /></div> 
+                </div>`)
+
+			)
 	$('#chart-space').removeClass('loading')
 
+
 	//scrub data using helper function
-	console.log('pre-reducexy', stats)
 	stats = stats.map(object => {
 		return reduceXY(object, stats.columns[0], stats.columns[1], stats.columns[2])
 	})
 
-	console.log("Scrubbed Stats", stats)
+	console.log('stats to work with', stats)
+
+	stats.forEach( dataObj => {
+		console.log('appending chart row')
+		$('#corrections-form').append(
+			$(`<div class='row'>
+                  <div class='col-sm-4 correction-cell label-col'> <input type='text' value=${dataObj.label} /></div> 
+                  <div class='col-sm-4 correction-cell x-col'> <input type='text' value=${dataObj.x} /></div>  
+                  <div class='col-sm-4 correction-cell y-col'> <input type='text' value=${dataObj.y} /></div> 
+                </div>`)
+		)
+	})
+
 	//Using d3 methods min and max, get the maximum and minimum from the data set
 	let xRange= [
 	d3.min(stats, function(data){
@@ -98,8 +122,9 @@ return 	Tesseract.recognize(result).progress(function (p) {console.log('progress
 	var svg = d3.select('#chart-space')
 
 		.append('svg')
-		.attr("width", w)
-		.attr('height', h) //assigning to variable allows us to capture a reference to the svg we've created to hold our data
+		.attr("width", w )
+		.attr('height', h ) //assigning to variable allows us to capture a reference to the svg we've created to hold our data
+
 
 	var circles = svg.selectAll('circle') //create empty references. Set reference variable for later use
 		.data(stats) //bind data
@@ -135,8 +160,42 @@ $('svg').on('click', '.dataDot', function(event){
 	$('#valX').text(rawVals[0])
 	$('#valY').text(rawVals[1])
 })
-
+	
 	$('#stat-space').append(`<div id='correlation'>Correlation Coefficient: ${Math.round(correlation(stats)*100)/100}</div>`)
+
+	$('.label-col').on('change', (e) => {
+		let xCoord = Number($($($(event.target).parent().parent().find('.x-col')[0]).children()[0]).val())
+		xCoord = xScale(xCoord)
+		let yCoord = Number($($($(event.target).parent().parent().find('.y-col')[0]).children()[0]).val())
+		yCoord = yScale(yCoord)
+		let thisDot = $(`circle[cx='${xCoord}'][cy='${yCoord}']`)
+		thisDot.attr('id', e.target.value)
+	})
+	$('.x-col').on('change', (e) => {
+		let xCoord = xScale(e.target.value)
+		let label = $($($(event.target).parent().parent().find('.label-col')[0]).children()[0]).val()
+
+		let yCoord = Number($($($(event.target).parent().parent().find('.y-col')[0]).children()[0]).val())
+		yCoord = yScale(yCoord)
+		
+		let thisDot = $(`circle[id='${label}'][cy='${yCoord}']`)
+		thisDot.attr('cx', xCoord)
+		thisDot.attr('x', e.target.value)
+	})
+
+	$('.y-col').on('change', (e) => {
+		let yCoord = yScale(e.target.value)
+
+		let label = $($($(event.target).parent().parent().find('.label-col')[0]).children()[0]).val()
+
+		let xCoord = Number($($($(event.target).parent().parent().find('.x-col')[0]).children()[0]).val())
+		xCoord = xScale(xCoord)
+		
+		let thisDot = $(`circle[id='${label}'][cx='${xCoord}']`)
+		thisDot.attr('cy', yCoord)
+		thisDot.attr('y', e.target.value)
+	})
+
 })
 
 

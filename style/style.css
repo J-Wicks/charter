@@ -9,7 +9,7 @@ body {
 }
 .bodybox {
 	font-family: 'Pangolin', cursive;
-	font-size: 1.5em;
+	font-size: 1.2em;
 }
 #chart-space{
 	border-left: 2px solid;
@@ -20,6 +20,22 @@ body {
 
 }
 
+input {
+	background: transparent;
+	border: none;
+	height: 100%;
+	width: 100%;
+	padding: 2px;
+}
+.correction-cell{
+	border: solid 1px;
+	padding: 3px;
+}
+
+.correction-header{
+	background-color: #C8B8DB;
+	border: solid 2px;
+}
 .img-thumbnail-selector {
 	overflow: scroll;
 }

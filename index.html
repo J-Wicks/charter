@@ -29,7 +29,6 @@
           <button id="close-btn" class="glyphicon glyphicon-remove-sign red"> </button>
           </div>
         <div id="camdemo" style="width: 360px; height: 240px; text-align: center; margin: 0 auto;"></div>
-        <br>
         <div class = 'camera-buttons' style="text-align:center;">
             <button id="start"><span class="glyphicon glyphicon-eye-open"></span></button>
             <button id="savefile"> <span class="glyphicon glyphicon-camera"> </span> </button>
@@ -41,7 +40,7 @@
         
       </div>
 
-      <div id='container-fluid' className='workspace bodybox'>
+      <div id='container-fluid' class='workspace bodybox'>
       <div id='row'>
         <div id='chart-space' class='col-sm-6'>
         <svg width="100%" height="100%"></svg>
@@ -65,12 +64,17 @@
             <button id='graph'> Chart! </button>
           </div>
           <div id='image-display'>
-            <p> Your Image Here</p>
           </div>
 
         </div>
         <div id='correction-space' class='col-lg-3 bodybox'>
-          <span> Add correction chart here # </span>
+          <span> Make Corrections Here </span>
+            <div class='container-fluid'>
+              <form>
+                <div id='corrections-form'>
+                </div>
+              </form>
+            </div>
         </div>
     </div>
     </body>
